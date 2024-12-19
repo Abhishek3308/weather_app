@@ -1,0 +1,77 @@
+{% extends "home.html" %} 
+{% block content %} 
+{% include "navbar.html" %}
+
+<div class="bg-cover bg-no-repeat w-full h-screen overflow-hidden" style="background-image: url('https://t4.ftcdn.net/jpg/10/92/39/95/240_F_1092399560_JCzHjD01b7Mme0A6gvsVXDAVYFuaL9lm.jpg');">
+
+<div class="min-h-screen flex items-center justify-center ">
+  <div class='max-w-md w-full p-11 rounded-xl '>
+    <form class="space-y-6 bg-gray-600 p-8 bg-opacity-70 rounded-md " method="POST">
+        {% csrf_token %} 
+      <div>
+       <h1 class="mt-10 text-center text-3xl font-bold tracking-tight text-white">Signup</h1>
+        <div class="mt-2 ">
+          <input
+          placeholder="Enter Your Email Address"
+            type="email"
+            name="email"
+            id="email"
+            required
+            class="block w-full rounded-md bg-white p-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          />
+        </div>
+      </div>
+      
+      <div>
+        <div class="mt-2">
+          <input
+          placeholder="Enter Your Username"
+            type="text"
+            name="username"
+            id="username"
+            required
+            class="block w-full rounded-md bg-white  p-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          />
+        </div>
+      </div>
+
+      <div>
+        <div class="mt-2">
+          <input
+          placeholder="Enter Your Password"
+            type="password"
+            name="password"
+            id="password"
+            required
+            class="block w-full rounded-md bg-white p-2  text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          />
+        </div>
+      </div>
+      
+      <div>
+        <div class="mt-2">
+          <input
+          placeholder="Again Enter Your Password "
+            type="password"
+            name="confirm_password"
+            id="confirm_password"
+            required
+            class="block w-full rounded-md bg-white p-2  text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          />
+        </div>
+      </div>
+      <h3 class="text-white"> Already  a user <a href="{% url 'signin' %}" class="text-blue-400">Signin ?</h3></a>
+
+      <div>
+        <button
+          type="submit"
+          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Sign up
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+{% endblock content %}
