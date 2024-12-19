@@ -11,29 +11,41 @@ load_dotenv()
 # Create your views here.
 
 def sign_up(request):
+    errors={}
     if request.method == 'POST':
         email = request.POST.get('email')
         username = request.POST.get('username')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
         if CustomUser.objects.filter(email=email).exists():
-            messages.error(request, 'Email is already taken')
-            print('email already taken')
-            return redirect('signup') 
+            errors['email']="email is already exist"
+            # messages.error(request, 'Email is already taken')
+            # print('email already taken')
+            # return redirect('signup') 
+        if CustomUser.objects.filter(username=username).exists():
+            errors['username']="username is already exists"
+
+        if password!=confirm_password:
+            errors['confirm_password']="Password doesn't match"
+
+        if errors:
+            return render(request,"signup.html",{'errors':errors})
         
-        if password==confirm_password:
-            user= CustomUser.objects.create_user(
-            email=email,
-            username=username)
-            user.set_password(password)
-            user.save()
-            messages.success(request, 'Account created successfully. Please log in.')
-            return redirect('signin')
-        messages.error(request, 'Email is already taken')
+        
+        user= CustomUser.objects.create_user(
+        email=email,
+        username=username)
+        user.set_password(password)
+        user.save()
+        messages.success(request, 'Account created successfully. Please log in.')
+        return redirect('signin')
+        
+        # messages.error(request, 'Email is already taken')
     return render(request,'signup.html')
 
 def sign_in(request):
     if request.method == 'POST':
+        errors={}
         username = request.POST.get('username')
         password = request.POST.get('password')
         user= authenticate(request,username=username,password=password)
@@ -42,8 +54,9 @@ def sign_in(request):
             login(request,user)
             return redirect('weather')
         else:
-            messages.error(request,"invalid username or password")
-            return redirect('signin')
+            errors['user']="user is not found"
+            # messages.error(request,"invalid username or password")
+           
             
         
     return render(request,'signin.html')
@@ -61,6 +74,7 @@ def sign_out(request):
 
 @login_required(login_url='signin')
 def weather(request):
+    errors={}
     if 'city' in request.POST:
         city= request.POST.get('city')
         print(city,"nnnnnnn")
@@ -91,7 +105,8 @@ def weather(request):
         
     except KeyError:
         exception_occured = True
-        messages.error(request,'Enter date is not valid to API')
+        errors['weather']="Enter date is not valid to API"
+        # messages.error(request,'Enter date is not valid to API')
         day=datetime.date.today()
         
     return render(request,'weather.html',{

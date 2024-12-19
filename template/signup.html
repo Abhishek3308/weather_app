@@ -6,7 +6,7 @@
 
 <div class="min-h-screen flex items-center justify-center ">
   <div class='max-w-md w-full p-11 rounded-xl '>
-    <form class="space-y-6 bg-gray-600 p-8 bg-opacity-70 rounded-md " method="POST">
+    <form class="space-y-6 bg-gray-600 p-8 bg-opacity-50 rounded-md " method="POST">
         {% csrf_token %} 
       <div>
        <h1 class="mt-10 text-center text-3xl font-bold tracking-tight text-white">Signup</h1>
@@ -19,6 +19,9 @@
             required
             class="block w-full rounded-md bg-white p-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
           />
+          {% if errors.email %}
+          <p style="color:red"> {{errors.email}}</p>
+        {% endif %}
         </div>
       </div>
       
@@ -32,6 +35,9 @@
             required
             class="block w-full rounded-md bg-white  p-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
           />
+          {% if errors.username %}
+              <p style="color:red"> {{errors.username}}</p>
+          {% endif %}
         </div>
       </div>
 
@@ -45,6 +51,9 @@
             required
             class="block w-full rounded-md bg-white p-2  text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
           />
+          {% comment %} {% if errors.confirm_password %}
+          <p>{{errors.confirm_password}}</p>
+        {% endif %} {% endcomment %}
         </div>
       </div>
       
@@ -58,6 +67,9 @@
             required
             class="block w-full rounded-md bg-white p-2  text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
           />
+          {% if errors.confirm_password %}
+          <p style="color:red"> {{errors.confirm_password}}</p>
+        {% endif %}
         </div>
       </div>
       <h3 class="text-white"> Already  a user <a href="{% url 'signin' %}" class="text-blue-400">Signin ?</h3></a>
